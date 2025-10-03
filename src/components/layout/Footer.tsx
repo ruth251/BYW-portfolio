@@ -53,22 +53,23 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Our Companies</h3>
             <ul className="space-y-2">
               <li>
-                <span className="text-primary-foreground/80">
+                <Link to="/companies/Welin" className="text-primary-foreground/80 hover:underline">
                   Welin - Agrochemicals
-                </span>
+                </Link>
               </li>
               <li>
-                <span className="text-primary-foreground/80">
+                <Link to="/companies/Bnosha" className="text-primary-foreground/80 hover:underline">
                   Bnosha - Veterinary Drugs
-                </span>
+                </Link>
               </li>
               <li>
-                <span className="text-primary-foreground/80">
+                <Link to="/companies/Yabon" className="text-primary-foreground/80 hover:underline">
                   Yabon - Agricultural Inputs
-                </span>
+                </Link>
               </li>
             </ul>
           </div>
+
 
           {/* Contact Info */}
           <div className="w-full max-w-xs">
