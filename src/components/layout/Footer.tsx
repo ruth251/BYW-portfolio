@@ -106,7 +106,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/20 mt-10 pt-6 text-center">
           <p className="text-primary-foreground/60 text-sm">
-            © {currentYear} . All rights reserved.
+            © {currentYear} BWY . All rights reserved.
           </p>
         </div>
       </div>
