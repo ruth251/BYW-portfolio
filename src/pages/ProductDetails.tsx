@@ -21,19 +21,19 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-green-50 py-20 px-6">
-      <div className="container mx-auto flex flex-col lg:flex-row gap-10 bg-white rounded-3xl shadow-lg p-8">
+    <div className="min-h-screen bg-green-50 py-16 px-4 md:px-8">
+      <div className="container mx-auto flex flex-col lg:flex-row gap-8 bg-white rounded-2xl shadow-lg p-6 md:p-8">
         {/* Image */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="lg:w-1/2 flex justify-center items-center"
+          className="lg:w-1/2 flex justify-center items-start"
         >
           <img
             src={product.image}
             alt={product.name}
-            className="w-full max-w-md h-auto object-contain rounded-2xl shadow-md"
+            className="w-full max-w-sm h-auto max-h-80 object-contain rounded-xl shadow-md"
           />
         </motion.div>
 
@@ -42,11 +42,11 @@ const ProductDetails = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="lg:w-1/2 flex flex-col justify-center"
+          className="lg:w-1/2 flex flex-col justify-start"
         >
-          <h2 className="text-4xl font-bold text-green-800 mb-4">{product.name}</h2>
-          <p className="text-lg text-gray-700 mb-6">{product.description}</p>
-          <p className="text-sm text-gray-500 font-medium mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-3">{product.name}</h2>
+          <p className="text-base md:text-lg text-gray-700 mb-4">{product.description}</p>
+          <p className="text-sm text-gray-500 font-medium mb-6">
             Category: {product.category}
           </p>
 
