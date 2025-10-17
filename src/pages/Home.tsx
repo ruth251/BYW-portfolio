@@ -1,155 +1,166 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import CompanyCard from "@/components/sections/CompanyCard";
-import heroFarmer from "@/assets/hero-farmer.jpg";
-import welin from "@/assets/welin.jpg";
+import { motion, AnimatePresence } from "framer-motion";
+
+import heroLogistics from "@/assets/heroLogistics.jpg";
 import bnosha from "@/assets/bnosha.jpg";
-import yabon from "@/assets/yabon.jpg";
+import farmland from "@/assets/farmland.jpg";
+import product1 from "@/assets/produts.jpg";
+import product2 from "@/assets/diclan.jpg";
+import product3 from "@/assets/metron.png"; 
 
 const Home = () => {
+  const slides = [
+    {
+      image: product1,
+      title: "High-Quality Veterinary Medicines",
+      description: "Reliable solutions for animal health across Ethiopia.",
+    },
+    {
+      image: product2,
+      title: "Premium Animal Feed Additives",
+      description: "Boosting livestock productivity with top-notch feed supplements.",
+    },
+    {
+      image: product3,
+      title: "Advanced Agricultural Inputs",
+      description: "Helping farmers achieve higher yields and sustainable growth.",
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-mesh">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroFarmer})` }}
-        />
-        
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-4xl animate-fadeInUp">
-            <h6 className="text-4xl md:text-6xl font-bold mb-6 animate-slideInRight text-foreground leading-tight">
-  Empowering<br/>
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-lime-500 animate-pulse-glow">
-    Agriculture &amp;<br/>
-    Veterinary Care
-  </span>
-</h6>
-<p className="text-xl md:text-2xl mb-4 text-black font-bold animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-  We've been walking alongside farmers for 15+ years.
-</p>
-<p className="text-lg md:text-xl mb-8 text-black font-bold animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-  Trusted by over 1,000 farmers and veterinarians who rely on us every day.
-</p>
-            <div className="animate-scaleIn" style={{ animationDelay: '0.6s' }}>
-              <div
-                className="inline-block will-change-transform transform-gpu animate-bounce"
-                style={{ animationDuration: '1.2s', animationTimingFunction: 'cubic-bezier(.25,.46,.45,.94)' }}
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{ backgroundImage: `url(${heroLogistics})` }}
+        ></div>
+
+        {/* Transparent Green Overlay */}
+        <div className="absolute inset-0 bg-green-900/80"></div>
+
+        {/* Additional black/blur overlay for readability */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 max-w-7xl w-full">
+          {/* Left Side Text */}
+          <div className="md:w-1/2 text-left">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 1 }}
               >
-                <Link to="/products">
-                  <Button variant="hero" size="lg" className="btn-modern glow">
-                    Explore Products
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Companies Section */}
-      <section className="py-20 bg-muted/30 relative overflow-hidden">
-        <div className="absolute inset-0 bg-mesh opacity-30"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16 animate-fadeInUp">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 text-gradient">
-              Our Sister Companies
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Three integrated companies working together to serve farmers and veterinary professionals 
-              with innovative solutions and reliable products.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
-              <CompanyCard
-                name="Welin"
-                description="Specializing in advanced agrochemical solutions for crop protection and yield enhancement."
-                image={welin}
-                alt="Female farmer with vegetables representing Welin agrochemical solutions"
-              />
-            </div>
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-              <CompanyCard
-                name="Bnosha"
-                description="Leading veterinary pharmaceutical distribution with comprehensive animal health solutions."
-                image={bnosha}
-                alt="Veterinarian with cattle representing Bnosha veterinary solutions"
-              />
-            </div>
-            <div className="animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
-              <CompanyCard
-                name="Yabon"
-                description="Innovative agricultural inputs and technical support for modern farming practices."
-                image={yabon}
-                alt="Male farmer in field representing Yabon agricultural inputs"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission Section */}
-      <section className="py-20 bg-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-card opacity-50"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center animate-fadeInUp">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8 text-gradient">
-              Our Mission &amp; Vision
-            </h2>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div className="space-y-4 glass-card p-8 rounded-lg card-modern">
-                <h3 className="text-2xl font-semibold text-primary">Mission</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  To empower farmers and veterinary professionals with reliable, safe, and effective 
-                  products that boost productivity and protect health.
+                {/* Title and description in green */}
+                <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+                  {slides[currentSlide].title}
+                </h1>
+                <p className="text-lg md:text-xl text-green-200/90 mt-4 max-w-lg">
+                  {slides[currentSlide].description}
                 </p>
-              </div>
-              <div className="space-y-4 glass-card p-8 rounded-lg card-modern">
-                <h3 className="text-2xl font-semibold text-primary">Vision</h3>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  To be a trusted leader in agricultural and veterinary input supply in the region, 
-                  fostering sustainable agriculture and animal welfare.
-                </p>
-              </div>
-            </div>
-            <div className="mt-12 animate-scaleIn" style={{ animationDelay: '0.4s' }}>
-              <Link to="/about">
-                <Button variant="primary" size="lg" className="btn-modern glow">
-                  Learn More About Us
-                </Button>
-              </Link>
-            </div>
+
+                {/* Buttons */}
+                <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                  <Link to="/products">
+                    <Button className="bg-green-500 hover:bg-green-600 text-white shadow-md">
+                      Explore Products
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button className="bg-green-500 hover:bg-green-600 text-white shadow-md">
+                      Contact Us
+                    </Button>
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Right Side Product Images */}
+          <div className="md:w-1/2 flex justify-center mt-8 md:mt-0 relative h-[450px]">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentSlide}
+                src={slides[currentSlide].image}
+                alt={`Slide ${currentSlide + 1}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ duration: 1 }}
+                className="absolute w-[350px] md:w-[450px] h-[250px] md:h-[450px] object-contain rounded-xl shadow-xl"
+              />
+            </AnimatePresence>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-hero text-primary-foreground relative overflow-hidden">
-        <div className="absolute inset-0 bg-mesh opacity-20"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="animate-fadeInUp">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 float">
-              Ready to Partner With Us?
-            </h2>
-            <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-              Join thousands of satisfied customers who trust our expertise and rely on our quality products.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-scaleIn" style={{ animationDelay: '0.3s' }}>
-              <Link to="/contact">
-                <Button variant="outline" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 btn-modern">
-                  Contact Us Today
-                </Button>
+      {/* SISTER COMPANIES 	*/}
+      <section className="py-24 bg-gradient-to-b from-white to-lime-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-green-700 dark:text-lime-300">
+            Our Sister Companies
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
+            One mission — multiple strengths.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 max-w-7xl mx-auto">
+          {[
+            {
+              name: "Bnosha",
+              category: "Agrochemical & Agricultural Inputs",
+              image: bnosha,
+              link: "/companies/bnosha",
+            },
+            {
+              name: "Welin",
+              category: "Veterinary Medicines & Animal Health",
+              image: farmland,
+              link: "/companies/welin",
+            },
+            {
+              name: "Yabon",
+              category: "Agrochemical & Agricultural Inputs",
+              image: farmland,
+              link: "/companies/yabon",
+            },
+          ].map((company, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.2 }}
+              className="relative group overflow-hidden rounded-2xl shadow-lg cursor-pointer"
+            >
+              <Link to={company.link}>
+                <img
+                  src={company.image}
+                  alt={company.name}
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                  <h3 className="text-2xl font-bold text-white">{company.name}</h3>
+                  <p className="text-sm text-white/80 mt-1">{company.category}</p>
+                </div>
               </Link>
-              <Link to="/products">
-                
-                <Button variant="outline" size="lg" className="border-primary-foreground text-primary hover:bg-primary-foreground/10 btn-modern">
-                  Browse Products
-                </Button>
-              </Link>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
       </section>
     </div>
