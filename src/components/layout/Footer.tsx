@@ -53,23 +53,31 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Our Companies</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/companies/Welin" className="text-primary-foreground/80 hover:underline">
+                <Link
+                  to="/companies/Welin"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Welin - Agrochemicals
                 </Link>
               </li>
               <li>
-                <Link to="/companies/Bnosha" className="text-primary-foreground/80 hover:underline">
+                <Link
+                  to="/companies/Bnosha"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Bnosha - Veterinary Drugs
                 </Link>
               </li>
               <li>
-                <Link to="/companies/Yabon" className="text-primary-foreground/80 hover:underline">
+                <Link
+                  to="/companies/Yabon"
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                >
                   Yabon - Agricultural Inputs
                 </Link>
               </li>
             </ul>
           </div>
-
 
           {/* Contact Info */}
           <div className="w-full max-w-xs">
@@ -78,28 +86,27 @@ const Footer = () => {
               <div className="flex items-center justify-center md:justify-start space-x-3">
                 <MapPin className="h-4 w-4 text-primary-foreground/60" />
                 <span className="text-primary-foreground/80 text-sm">
-                  Eldasol building, 
-                  4th floor (In front of NB business center)
+                  Eldasol building, 4th floor (In front of NB business center)
                 </span>
               </div>
               <div className="flex items-center justify-center md:justify-start space-x-3">
-      <Phone className="h-4 w-4 text-primary-foreground/60" />
-      <a 
-        href="tel:+251912507091" 
-        className="text-primary-foreground/80 text-sm hover:underline"
-      >
-        +251 91 250 7091
-      </a>
-    </div>
-             <div className="flex items-center justify-center md:justify-start space-x-3">
-      <Mail className="h-4 w-4 text-primary-foreground/60" />
-      <a 
-        href="mailto:sendfornosha@gmail.com" 
-        className="text-primary-foreground/80 text-sm hover:underline"
-      >
-        sendfornosha@gmail.com
-      </a>
-    </div>
+                <Phone className="h-4 w-4 text-primary-foreground/60" />
+                <a
+                  href="tel:+251912507091"
+                  className="text-primary-foreground/80 text-sm hover:underline"
+                >
+                  +251 91 250 7091
+                </a>
+              </div>
+              <div className="flex items-center justify-center md:justify-start space-x-3">
+                <Mail className="h-4 w-4 text-primary-foreground/60" />
+                <a
+                  href="mailto:sendfornosha@gmail.com"
+                  className="text-primary-foreground/80 text-sm hover:underline"
+                >
+                  sendfornosha@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
