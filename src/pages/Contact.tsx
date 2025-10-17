@@ -10,6 +10,12 @@ import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import greenbg from "@/assets/greenbg.jpg";
 import emailjs from "@emailjs/browser";
+import { motion, Variants } from "framer-motion";
+
+const fadeIn = (i = 1): Variants => ({
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { delay: i * 0.15, duration: 0.7, ease: "easeOut" } },
+});
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -67,7 +73,6 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Scroll to form and pre-fill company
   const handleCompanyContact = (companyName: string) => {
     setFormData(prev => ({ ...prev, company: companyName }));
     if (formSectionRef.current) {
@@ -76,64 +81,38 @@ const Contact = () => {
   };
 
   const contactInfo = [
-    {
-      icon: <MapPin className="h-6 w-6" />,
-      title: "Main Office",
-      details: ["Eldasol building", "4th floor (In front of NB business center)"]
-    },
-    {
-      icon: <Phone className="h-6 w-6" />,
-      title: "Phone Numbers",
-      details: ["+251 91 250 7091 ", "+251 99 623 8648"]
-    },
-    {
-      icon: <Mail className="h-6 w-6" />,
-      title: "Email Address",
-      details: ["sendfornosha@gmail.com "]
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Business Hours",
-      details: ["Monday - Friday: 8:00 AM - 6:00 PM", "Saturday: 9:00 AM - 4:00 PM", "Sunday: Emergency Only"]
-    }
+    { icon: <MapPin className="h-6 w-6" />, title: "Main Office", details: ["Eldasol building", "4th floor (In front of NB business center)"] },
+    { icon: <Phone className="h-6 w-6" />, title: "Phone Numbers", details: ["+251 91 250 7091", "+251 99 623 8648"] },
+    { icon: <Mail className="h-6 w-6" />, title: "Email Address", details: ["sendfornosha@gmail.com"] },
+    { icon: <Clock className="h-6 w-6" />, title: "Business Hours", details: ["Monday - Friday: 8:00 AM - 6:00 PM", "Saturday: 9:00 AM - 4:00 PM", "Sunday: Emergency Only"] }
   ];
 
   const companies = [
-    {
-      name: "Welin",
-      speciality: "Agrochemicals",
-      contact: "agropharma10@gmail.com",
-      phone: "+251 91 207 2531"
-    },
-    {
-      name: "Bnosha", 
-      speciality: "Veterinary Drugs",
-      contact: "sendfornosha@gmail.com ",
-      phone: "+251 91 250 7091"
-    },
-    {
-      name: "Yabon",
-      speciality: "Agricultural Inputs",
-      contact: "Sendyonas@gmail.com",
-      phone: "+251 99 623 8648"
-    }
+    { name: "Welin", speciality: "Agrochemicals", contact: "agropharma10@gmail.com", phone: "+251 91 207 2531" },
+    { name: "Bnosha", speciality: "Veterinary Drugs", contact: "sendfornosha@gmail.com", phone: "+251 91 250 7091" },
+    { name: "Yabon", speciality: "Agricultural Inputs", contact: "Sendyonas@gmail.com", phone: "+251 99 623 8648" }
   ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section 
-        className="py-20 bg-cover bg-center bg-no-repeat relative flex flex-col items-center justify-center text-center px-4"
-        style={{ backgroundImage: `url(${greenbg})` }}
-      >
-        <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 animate-bounce">
-          Get In Touch
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Ready to partner with us or have questions about our products and services? 
-          We're here to help and respond within 24 hours.
-        </p>
-      </section>
+<section 
+  className="py-20 relative flex flex-col items-center justify-center text-center px-4 bg-cover bg-center bg-no-repeat rounded-b-3xl overflow-hidden"
+  style={{ backgroundImage: `url(${greenbg})` }}
+>
+  {/* Darker green overlay */}
+  <div className="absolute inset-0 bg-green-900/70"></div>
+
+  <div className="relative z-10">
+    <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 animate-bounce">
+      Get In Touch
+    </h1>
+    <p className="text-xl text-green-100 max-w-3xl mx-auto leading-relaxed">
+      Ready to partner with us or have questions about our products and services? 
+      We're here to help and respond within 24 hours.
+    </p>
+  </div>
+</section>
 
       {/* Contact Form & Info */}
       <section className="py-20 bg-background">
@@ -172,7 +151,7 @@ const Contact = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="phone">Phone Number</Label>
@@ -237,21 +216,29 @@ const Contact = () => {
                 <h2 className="text-3xl font-bold text-foreground mb-6">Contact Information</h2>
                 <div className="grid grid-cols-1 gap-6">
                   {contactInfo.map((info, index) => (
-                    <Card key={index} className="shadow-soft">
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                          <div className="text-primary mt-1">{info.icon}</div>
-                          <div>
-                            <h4 className="font-semibold text-foreground mb-2">{info.title}</h4>
-                            {info.details.map((detail, detailIndex) => (
-                              <p key={detailIndex} className="text-muted-foreground text-sm">
-                                {detail}
-                              </p>
-                            ))}
+                    <motion.div
+                      key={index}
+                      variants={fadeIn(index)}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                    >
+                      <Card className="shadow-soft">
+                        <CardContent className="p-6">
+                          <div className="flex items-start space-x-4">
+                            <div className="text-primary mt-1">{info.icon}</div>
+                            <div>
+                              <h4 className="font-semibold text-foreground mb-2">{info.title}</h4>
+                              {info.details.map((detail, detailIndex) => (
+                                <p key={detailIndex} className="text-muted-foreground text-sm">
+                                  {detail}
+                                </p>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -274,31 +261,38 @@ const Contact = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {companies.map((company, index) => (
-              <Card key={index} className="text-center shadow-medium hover:shadow-strong transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-2xl text-primary">{company.name}</CardTitle>
-                  <p className="text-muted-foreground">{company.speciality}</p>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-center space-x-2">
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{company.contact}</span>
+              <motion.div
+                key={index}
+                variants={fadeIn(index)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <Card className="text-center shadow-medium hover:shadow-strong transition-all duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-primary">{company.name}</CardTitle>
+                    <p className="text-muted-foreground">{company.speciality}</p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-center space-x-2">
+                        <Mail className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground">{company.contact}</span>
+                      </div>
+                      <div className="flex items-center justify-center space-x-2">
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm text-muted-foreground">{company.phone}</span>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-center space-x-2">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{company.phone}</span>
-                    </div>
-                  </div>
-                  <Button
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => handleCompanyContact(company.name)}
-                  >
-                    Contact {company.name}
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Button
+                      className="w-full bg-green-600 text-white hover:bg-green-700"
+                      onClick={() => handleCompanyContact(company.name)}
+                    >
+                      Contact {company.name}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
