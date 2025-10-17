@@ -1,262 +1,213 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Leaf, Heart, Sprout, Shield } from "lucide-react";
+import { Leaf, Heart, Sprout, Shield, Eye, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
+// Images
 import herbknockImage from "@/assets/herbknock.png";
 import metronImage from "@/assets/metron.png";
 import welmaxImage from "@/assets/welmax.png";
 import welphosTabImage from "@/assets/welphos-tab.png";
 import productPortfolioBg from "@/assets/product-portfolio-bg.png";
+import diclanImage from "@/assets/diclan.jpg";
+import vetprodImage from "@/assets/vetprod.jpg";
+import oxyethioImage from "@/assets/oxyethio.jpg";
+import yeldmaxImage from "@/assets/yeldmax.jpg";
 
+// ----------------------------------------------------
+// Exported products array (outside the component)
+export const products = [
+  {
+    id: 1,
+    name: "Herbknock",
+    category: "Agrochemical",
+    description:
+      "A powerful herbicide designed to eliminate unwanted weeds effectively while preserving crop health.",
+    image: herbknockImage,
+    icon: <Leaf className="h-6 w-6 text-green-600" />,
+  },
+  {
+    id: 2,
+    name: "Metron",
+    category: "Agrochemical",
+    description:
+      "Metron is a high-performance pesticide offering maximum protection for crops against common pests.",
+    image: metronImage,
+    icon: <Leaf className="h-6 w-6 text-green-600" />,
+  },
+  {
+    id: 3,
+    name: "Yieldmax",
+    category: "Agrochemical",
+    description:
+      "A balanced fertilizer solution promoting strong root growth and improved yield.",
+    image: yeldmaxImage,
+    icon: <Sprout className="h-6 w-6 text-emerald-600" />,
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+  },
+  {
+    id: 4,
+    name: "Welmax",
+    category: "Agrochemical",
+    description:
+      "A balanced fertilizer solution promoting strong root growth and improved yield.",
+    image: welmaxImage,
+    icon: <Sprout className="h-6 w-6 text-emerald-600" />,
+  },
+  {
+    id: 5,
+    name: "Welphos Tab",
+    category: "Agrochemical",
+    description:
+      "High-quality phosphorous supplement for optimal plant nutrition.",
+    image: welphosTabImage,
+    icon: <Shield className="h-6 w-6 text-teal-600" />,
+  },
+  {
+    id: 6,
+    name: "VetPlus",
+    category: "Veterinary",
+    description:
+      "A trusted veterinary solution for improving livestock immunity and growth performance.",
+    image: welmaxImage,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 7,
+    name: "DICLAN",
+    category: "Veterinary",
+    description:
+      "Broad-spectrum antibiotic effective in treating bacterial infections in animals.",
+    image: diclanImage,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 8,
+    name: "Oxytetracycline 20%",
+    category: "Veterinary",
+    description:
+      "Highly concentrated Oxytetracycline for veterinary use, ensuring fast recovery from infections.",
+    image: oxyethioImage,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 9,
+    name: "1% Ivermectin",
+    category: "Veterinary",
+    description:
+      "Effective antiparasitic injection used in livestock for internal and external parasite control.",
+    image: vetprodImage,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+];
 
+// ----------------------------------------------------
+// Products component
 const Products = () => {
-  const agrochemicals = [
-    {
-      name: "Herbknock",
-      category: "Herbicide",
-      activeIngredient: "2,4-D amine salt 720 g/l",
-      description:
-        "The best alternative to 2,4-D butyl ester. Compared with other compounds such as 2,4-D butyl ester, HERBKNOCK is non volatile and safer",
-      uses: ["Wheat", "Teff", "Barley"],
-      image: herbknockImage,
-      icon: <Leaf className="h-6 w-6" />,
-    },
-    {
-      name: "Metron",
-      category: "Herbicide",
-      activeIngredient: "Water dispersible granule",
-      description:
-        "Selective post-emergence herbicide for effective and reliable control of broad leaf grass and sedges leaf weeds in Wheat & Teff",
-      uses: ["Wheat", "Teff"],
-      image: metronImage,
-      icon: <Leaf className="h-6 w-6" />,
-    },
-    {
-      name: "Welmax",
-      category: "Fungicide",
-      activeIngredient: "Mancozeb 64% w/w + Metalaxyl 8% w/w",
-      description:
-        "It has the triple functions of treating, protecting and eradicating the source of downy mildew and other fungal diseases",
-      uses: ["Vegetables", "Fruits", "Potatoes"],
-      image: welmaxImage,
-      icon: <Sprout className="h-6 w-6" />,
-    },
-    {
-      name: "Welphos Tab",
-      category: "Insecticide",
-      activeIngredient:
-        "Aluminum phosphide 560 g/kg + Inert materials 440 g/kg",
-      description:
-        "Kills all stages of insect growth. When used for fumigation and insecticide in granaries, it will not affect the seed viability of grains",
-      uses: ["Granaries", "Storage", "Warehouses"],
-      image: welphosTabImage,
-      icon: <Shield className="h-6 w-6" />,
-    },
-  ];
+  const [category, setCategory] = useState("All");
+  const categories = ["All", "Agrochemical", "Veterinary"];
+
+  const filteredProducts =
+    category === "All"
+      ? products
+      : products.filter((p) => p.category === category);
 
   const ProductCard = ({ product }: { product: any }) => (
-    <Card className="h-full shadow-soft hover:shadow-elevated transition-all duration-500 hover:-translate-y-2 card-modern group overflow-hidden">
-      {/* Product Image */}
-      <Dialog>
-        <DialogTrigger asChild>
-          <div className="relative h-64 overflow-hidden cursor-pointer bg-white">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <div className="absolute top-4 right-4">
-              <Badge
-                variant="outline"
-                className="bg-white/90 backdrop-blur-sm group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300"
-              >
-                {product.category}
-              </Badge>
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </div>
-        </DialogTrigger>
-        <DialogContent className="max-w-4xl max-h-[90vh] p-0 flex items-center justify-center">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-auto max-h-[85vh] object-contain"
-          />
-        </DialogContent>
-      </Dialog>
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.3 }}
+      className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden border border-gray-100 p-4 flex flex-col items-center"
+    >
+      <div className="relative w-full flex justify-center items-center">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-56 object-contain transition-transform duration-500 group-hover:scale-105"
+        />
 
-      <CardHeader className="relative">
-        <div className="flex items-center justify-between">
-          <div className="text-primary group-hover:scale-110 transition-transform duration-300">
-            {product.icon}
-          </div>
-        </div>
-        <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
+        <Link
+          to={`/product/${product.id}`}
+          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        >
+          <Button
+            size="icon"
+            variant="ghost"
+            className="rounded-full bg-green-600 hover:bg-green-700 shadow-md"
+          >
+            <Eye className="h-5 w-5 text-white" />
+          </Button>
+        </Link>
+      </div>
+
+      <div className="text-center mt-4">
+        <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wide">
           {product.name}
-        </CardTitle>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300 text-sm leading-relaxed">
-          {product.description}
-        </p>
-        <div>
-          <h4 className="font-semibold text-sm mb-2">Active Ingredient:</h4>
-          <p className="text-sm text-muted-foreground">
-            {product.activeIngredient}
-          </p>
-        </div>
-        <div>
-          <h4 className="font-semibold text-sm mb-2">Suitable for:</h4>
-          <div className="flex flex-wrap gap-1">
-            {product.uses.map((use: string, index: number) => (
-              <Badge
-                key={index}
-                variant="secondary"
-                className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-              >
-                {use}
-              </Badge>
-            ))}
-          </div>
-        </div>
-        <Button variant="primary" className="w-full mt-4 btn-modern" asChild>
-          <Link to="/contact">Request Quote</Link>
-        </Button>
-      </CardContent>
-    </Card>
+        </h3>
+      </div>
+    </motion.div>
   );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-green-50">
       {/* Hero Section */}
       <section
-        className="py-20 bg-cover bg-center bg-no-repeat relative"
+        className="relative py-32 bg-cover bg-center overflow-hidden"
         style={{ backgroundImage: `url(${productPortfolioBg})` }}
       >
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Our Product Portfolio
-          </h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Comprehensive range of high-quality agrochemicals and veterinary
-            pharmaceuticals sourced from globally recognized manufacturers.
-          </p>
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="container relative mx-auto px-6 text-center z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-6xl font-extrabold text-white mb-6"
+          >
+            Our Products
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+            className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto"
+          >
+            Explore premium agrochemical and veterinary solutions crafted for
+            performance, sustainability, and yield excellence.
+          </motion.p>
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">
-                Agrochemical Solutions
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Advanced crop protection products including insecticides,
-                herbicides, and fungicides for optimal agricultural
-                productivity.
-              </p>
-            </div>
+      {/* Product Listing Section */}
+      <section className="py-24">
+        <div className="container mx-auto px-4 bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-lg">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Category Sidebar */}
+            <div className="lg:w-1/4 border-2 border-gray-200 rounded-2xl p-4 flex lg:flex-col gap-4 justify-start overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0">
+              {/* Categories Heading */}
+              <h3 className="text-lg font-bold text-gray-700 mb-3">Categories</h3>
 
-            {/* Swiper Carousel */}
-            <Swiper
-              modules={[Navigation]}
-              spaceBetween={24}
-              slidesPerView={1}
-              navigation
-              breakpoints={{
-                640: { slidesPerView: 1 },
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-            >
-              {agrochemicals.map((product, index) => (
-                <SwiperSlide key={index}>
-                  <ProductCard product={product} />
-                </SwiperSlide>
+              {categories.map((cat, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCategory(cat)}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold transition-all w-full text-left ${
+                    category === cat
+                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
+                      : "bg-white/70 text-gray-800 hover:bg-green-100"
+                  }`}
+                >
+                  <ChevronRight className="h-5 w-5" />
+                  {cat}
+                </button>
               ))}
-            </Swiper>
-
-            <div className="text-center mt-12">
-              <p className="text-muted-foreground mb-6">
-                This is a sample of our agrochemical products. We offer a
-                comprehensive range of solutions for all crop protection needs.
-              </p>
-              <Button variant="primary" size="lg" asChild>
-                <Link to="/contact">View Complete Catalog</Link>
-              </Button>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Why Choose Our Products?
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Quality assurance and reliability you can trust for your
-              agricultural and veterinary needs.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-            <Card className="text-center shadow-soft">
-              <CardContent className="p-6">
-                <Shield className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3">Quality Assured</h3>
-                <p className="text-muted-foreground">
-                  All products sourced from certified international manufacturers
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center shadow-soft">
-              <CardContent className="p-6">
-                <Leaf className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3">
-                  Environmentally Safe
-                </h3>
-                <p className="text-muted-foreground">
-                  Eco-friendly formulations that protect both crops and
-                  environment
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center shadow-soft">
-              <CardContent className="p-6">
-                <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3">Proven Efficacy</h3>
-                <p className="text-muted-foreground">
-                  Tested and trusted by thousands of farmers and veterinarians
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center shadow-soft">
-              <CardContent className="p-6">
-                <Sprout className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-3">Technical Support</h3>
-                <p className="text-muted-foreground">
-                  Expert guidance and support for optimal product usage
-                </p>
-              </CardContent>
-            </Card>
+            {/* Product Grid */}
+            <div className="lg:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -264,4 +215,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Products
