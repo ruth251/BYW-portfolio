@@ -16,7 +16,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const navItems = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/home" },
     { name: "About Us", href: "/about" },
     { name: "Products", href: "/products" },
     { name: "Services", href: "/services" },
@@ -37,7 +37,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <span className="text-xl font-bold text-foreground underline-animated">Welin • Bnosha • Yabon</span>
+            <span className="text-xl font-bold text-foreground underline-animated">BNOSA Group</span>
           </Link>
 
           {/* Desktop Navigation */}

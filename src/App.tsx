@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 
 import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Products from "./pages/Products"; 
 import Services from "./pages/Services";
@@ -24,24 +25,32 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route
+            path="/*"
+            element={
+              <Layout>
+                <Routes>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
 
-            {/* Sister Companies */}
-            <Route path="/companies/Bnosha" element={<Bnosha />} />
-            <Route path="/companies/Welin" element={<Welin />} />
-            <Route path="/companies/Yabon" element={<Yabon />} />
+                  {/* Sister Companies */}
+                  <Route path="/companies/Bnosha" element={<Bnosha />} />
+                  <Route path="/companies/Welin" element={<Welin />} />
+                  <Route path="/companies/Yabon" element={<Yabon />} />
 
-            {/* Catch-all */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Layout>
+                  {/* Catch-all */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Layout>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -1,0 +1,2 @@
+# Force all requests to index.html to support React Router deep links
+/*    /index.html   200
