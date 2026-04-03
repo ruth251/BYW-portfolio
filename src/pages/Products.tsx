@@ -67,7 +67,7 @@ export const products = [
   {
     id: 6,
     name: "VetPlus",
-    category: "Veterinary",
+    category: "Agrochemical",
     description:
       "A trusted veterinary solution for improving livestock immunity and growth performance.",
     image: welmaxImage,
