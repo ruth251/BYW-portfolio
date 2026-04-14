@@ -37,7 +37,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <span className="text-xl font-bold text-foreground underline-animated">BNOSA Group</span>
+            <span className="text-xl font-bold text-foreground underline-animated">Bnosha Group</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -9,7 +9,9 @@ import bnosha from "@/assets/bnosha.jpg";
 import farmland from "@/assets/farmland.jpg";
 import product1 from "@/assets/produts.jpg";
 import product2 from "@/assets/diclan.jpg";
-import product3 from "@/assets/metron.png"; 
+import product3 from "@/assets/metron.png";
+import vetprodImage from "@/assets/vetprod.jpg"; 
+import agrochem from "@/assets/agrochem.jpg";            
 
 const Home = () => {
   const slides = [
@@ -171,13 +173,13 @@ const Home = () => {
               {
                 name: "Welin",
                 category: "Animal Health Care",
-                image: farmland,
+                image: vetprodImage,
                 link: "/companies/welin",
               },
               {
                 name: "Yabon",
                 category: "Yield Optimization",
-                image: farmland,
+                image: agrochem,
                 link: "/companies/yabon",
               },
             ].map((company, i) => (
