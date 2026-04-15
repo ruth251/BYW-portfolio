@@ -57,7 +57,7 @@ const Footer = () => {
                   to="/companies/Welin"
                   className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                 >
-                  Welin - Agrochemicals
+                  Welin - Veterinary Drugs
                 </Link>
               </li>
               <li>
@@ -65,7 +65,7 @@ const Footer = () => {
                   to="/companies/Bnosha"
                   className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                 >
-                  Bnosha - Veterinary Drugs
+                  Bnosha - Agricultural Inputs
                 </Link>
               </li>
               <li>
@@ -73,7 +73,7 @@ const Footer = () => {
                   to="/companies/Yabon"
                   className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                 >
-                  Yabon - Agricultural Inputs
+                  Yabon - Agrochemical
                 </Link>
               </li>
             </ul>
@@ -95,7 +95,7 @@ const Footer = () => {
                   href="tel:+251912507091"
                   className="text-primary-foreground/80 text-sm hover:underline"
                 >
-                  +251 91 250 7091
+                  +251 96 989 3105
                 </a>
               </div>
               <div className="flex items-center justify-center md:justify-start space-x-3">
@@ -104,7 +104,7 @@ const Footer = () => {
                   href="mailto:sendfornosha@gmail.com"
                   className="text-primary-foreground/80 text-sm hover:underline"
                 >
-                  sendfornosha@gmail.com
+                  groupnosha@gmail.com
                 </a>
               </div>
             </div>

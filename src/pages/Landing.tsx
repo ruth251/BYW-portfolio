@@ -20,10 +20,14 @@ import noshapodcast from "@/assets/noshapodcast.jpg";
 import tourandtravel from "@/assets/tourandtravel.jpg";
 import logistics from "@/assets/logistics.jpg";
 import scholar from "@/assets/scholar.jpg";
+import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+import whatsappQR from "@/assets/whatsapp-qr.jpg";
+import wechatQR from "@/assets/wechat-qr.jpg";
 
 const businessCards = [
   {
-    title: "BYW Agro Industry",
+    title: "BYW Agro",
     description:
       "Elevating agricultural productivity through modern inputs, sustainable value-chain growth, and industry-leading research.",
     url: "https://bywagro.com",
@@ -75,6 +79,61 @@ const Landing = () => {
   const companiesRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const { toast } = useToast();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    if (formRef.current) {
+      emailjs
+        .sendForm(
+          "service_kjlte6a",
+          "template_jccmjis",
+          formRef.current,
+          "wocaYpZ5MGkomZFcA"
+        )
+        .then(
+          () => {
+            toast({
+              title: "Message Sent!",
+              description: "Our team will get back to you shortly.",
+            });
+            setFormData({
+              name: "",
+              email: "",
+              message: "",
+            });
+            setIsSubmitting(false);
+          },
+          (error) => {
+            toast({
+              title: "Error",
+              description: "Something went wrong, please try again.",
+              variant: "destructive",
+            });
+            console.error("EmailJS error:", error);
+            setIsSubmitting(false);
+          }
+        );
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -84,7 +143,7 @@ const Landing = () => {
   const handleCardClick = (card: (typeof businessCards)[0]) => {
     if (card.route) {
       navigate(card.route);
-    } else if (card.url && !card.disabled) {
+    } else if (card.url) {
       window.open(card.url, "_blank", "noopener,noreferrer");
     }
   };
@@ -243,11 +302,9 @@ const Landing = () => {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             {businessCards.map((card) => {
-              const isReserved = card.disabled;
-
               const cardMarkup = (
                 <div className="flex h-full flex-col overflow-hidden">
-                  {!isReserved && card.image && (
+                  {card.image && (
                     <div className="h-48 w-full overflow-hidden">
                       <img
                         src={card.image}
@@ -278,9 +335,7 @@ const Landing = () => {
               const commonProps = {
                 key: card.title,
                 onClick: () => handleCardClick(card),
-                className: `group rounded-3xl border border-[#474545]/10 bg-white transition-all shadow-sm hover:border-[#5F5B3A]/40 hover:shadow-xl overflow-hidden ${
-                  isReserved ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
-                }`,
+                className: `group rounded-3xl border border-[#474545]/10 bg-white transition-all shadow-sm hover:border-[#5F5B3A]/40 hover:shadow-xl overflow-hidden cursor-pointer`,
               };
 
               return <div {...commonProps}>{cardMarkup}</div>;
@@ -343,7 +398,7 @@ const Landing = () => {
                     </h5>
                     <div className="mt-1 flex flex-wrap gap-x-8 gap-y-1 text-sm text-[#1c1b1b]/60 italic">
                       <span>+86 156 2396 3803 (CN)</span>
-                      <span>+251 93 864 4784 (ET)</span>
+                      <span>+251 93 864 4784/ +251 96 9893 105 (ET)</span>
                     </div>
                   </div>
                 </div>
@@ -357,12 +412,13 @@ const Landing = () => {
                       Email Address
                     </h5>
                     <p className="mt-1 text-sm text-[#1c1b1b]/60 italic">
-                      info@bnosagroup.com
+                      groupnosha@gmail.com
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+            
 
             <div className="rounded-[2.5rem] bg-[#1c1b1b] p-12 text-white">
               <h4 className="text-2xl font-black">Direct Message</h4>
@@ -370,32 +426,90 @@ const Landing = () => {
                 Our team typically responds within 24 business hours.
               </p>
               <form
+                ref={formRef}
                 className="mt-8 space-y-4"
-                onSubmit={(e) => e.preventDefault()}
+                onSubmit={handleSubmit}
               >
                 <input
                   type="text"
+                  name="name"
                   placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full rounded-xl bg-white/5 border border-white/10 px-6 py-4 text-sm focus:border-[#5F5B3A] focus:outline-none"
                 />
                 <input
                   type="email"
+                  name="email"
                   placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full rounded-xl bg-white/5 border border-white/10 px-6 py-4 text-sm focus:border-[#5F5B3A] focus:outline-none"
                 />
                 <textarea
                   rows={4}
+                  name="message"
                   placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className="w-full rounded-xl bg-white/5 border border-white/10 px-6 py-4 text-sm focus:border-[#5F5B3A] focus:outline-none"
                 />
-                <button className="w-full rounded-xl bg-[#5F5B3A] py-4 font-black transition-all hover:bg-white hover:text-[#1c1b1b]">
-                  SEND MESSAGE
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full rounded-xl bg-[#5F5B3A] py-4 font-black transition-all hover:bg-white hover:text-[#1c1b1b] disabled:opacity-50"
+                >
+                  {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                 </button>
               </form>
             </div>
           </div>
         </div>
+        {/* QR CONNECT (merged into contact) */}
+<div className="mt-16 text-center">
+  <h3 className="text-3xl md:text-4xl font-black text-[#1c1b1b]">
+    Connect Instantly
+  </h3>
+  <p className="mt-3 text-[#1c1b1b]/60">
+    Scan to reach us directly on your preferred platform
+  </p>
+
+  <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-12">
+    
+    {/* WhatsApp */}
+    <div className="group flex flex-col items-center">
+      <div className="bg-white p-6 rounded-3xl shadow-lg transition duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+        <img
+          src={whatsappQR}
+          alt="WhatsApp QR"
+          className="w-64 h-64 md:w-72 md:h-72 object-contain"
+        />
+      </div>
+      <p className="mt-4 text-lg font-bold text-[#1c1b1b]/70">
+        WhatsApp
+      </p>
+    </div>
+
+    {/* WeChat */}
+    <div className="group flex flex-col items-center">
+      <div className="bg-white p-6 rounded-3xl shadow-lg transition duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+        <img
+          src={wechatQR}
+          alt="WeChat QR"
+          className="w-64 h-64 md:w-72 md:h-72 object-contain"
+        />
+      </div>
+      <p className="mt-4 text-lg font-bold text-[#1c1b1b]/70">
+        WeChat
+      </p>
+    </div>
+
+  </div>
+</div>
       </section>
+
+      
+      
 
       {/* Footer */}
       <footer className="border-t border-[#474545]/10 bg-white py-12">

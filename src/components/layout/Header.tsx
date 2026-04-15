@@ -15,6 +15,8 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isLandingPage = location.pathname === '/';
+
   const navItems = [
     { name: "Home", href: "/home" },
     { name: "About Us", href: "/about" },
@@ -31,73 +33,89 @@ const Header = () => {
 
   const isActive = (href: string) => location.pathname === href;
 
+  const renderLogo = () => {
+    if (isLandingPage) {
+      return (
+        <Link to="/" className="flex items-center space-x-2 group">
+          <span className="text-xl font-bold text-foreground underline-animated">Bnosha Group</span>
+        </Link>
+      );
+    }
+    return (
+      <Link to="/home" className="flex items-center space-x-2 group">
+        <span className="text-xl font-bold text-foreground tracking-tighter">
+          Bnosha • Yabon • Welin
+        </span>
+      </Link>
+    );
+  };
+
   return (
     <header className="bg-background/95 backdrop-blur-md border-b border-border sticky top-0 z-50 shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <span className="text-xl font-bold text-foreground underline-animated">Bnosha Group</span>
-          </Link>
+          {renderLogo()}
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 underline-animated",
-                  isActive(item.href) ? "text-primary" : "text-muted-foreground"
-                )}
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {/* Sister Companies Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className={cn(
-                "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 flex items-center gap-1 underline-animated",
-                "text-muted-foreground"
-              )}>
-                Sister Companies
-                <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border-border">
-                {sisterCompanies.map((company) => (
-                  <DropdownMenuItem key={company.name} asChild>
-                    <Link 
-                      to={company.href}
-                      className="cursor-pointer"
-                    >
-                      {company.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-           
-          
-          </nav>
+          {!isLandingPage && (
+            <nav className="hidden md:flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 underline-animated",
+                    isActive(item.href) ? "text-primary" : "text-muted-foreground"
+                  )}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              {/* Sister Companies Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  "text-sm font-medium transition-all duration-300 hover:text-primary hover:scale-105 flex items-center gap-1 underline-animated",
+                  "text-muted-foreground"
+                )}>
+                  Sister Companies
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-background border-border">
+                  {sisterCompanies.map((company) => (
+                    <DropdownMenuItem key={company.name} asChild>
+                      <Link 
+                        to={company.href}
+                        className="cursor-pointer"
+                      >
+                        {company.name}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </nav>
+          )}
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          {!isLandingPage && (
+            <button
+              className="md:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          )}
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
+        {isMenuOpen && !isLandingPage && (
           <div className="md:hidden py-4 border-t border-border glass-card backdrop-blur-md animate-fadeInUp">
             <nav className="flex flex-col space-y-4">
               {navItems.map((item) => (
@@ -136,7 +154,7 @@ const Header = () => {
                 size="sm" 
                 className="w-fit mx-2 btn-modern" 
                 onClick={() => {
-                  navigate('/contact');
+                  navigate('/agro-contact');
                   setIsMenuOpen(false);
                 }}
               >

@@ -14,6 +14,11 @@ import diclanImage from "@/assets/diclan.jpg";
 import vetprodImage from "@/assets/vetprod.jpg";
 import oxyethioImage from "@/assets/oxyethio.jpg";
 import yeldmaxImage from "@/assets/yeldmax.jpg";
+import maxyl from "@/assets/maxyl.jpg";
+import vegguard from "@/assets/vegguard.jpg";
+import folicare from "@/assets/folicare.jpg";
+import lambon from "@/assets/lambon.jpg";
+
 
 // ----------------------------------------------------
 // Exported products array (outside the component)
@@ -100,6 +105,42 @@ export const products = [
     image: vetprodImage,
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
+  {
+    id: 10,
+    name: "Maxyl",
+    category: "Agrochemical",
+    description:
+      "FUNGICIDE:  Mancozeb 640G/KG + Metalaxyl-M 80G/KG WDG",
+    image: maxyl,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 11,
+    name: "Veg Guard",
+    category: "Agrochemical",
+    description:
+      "FUNGICIDE:  Prothioconazole 125g/L +Tebuconazole 125g/L EC",
+    image: vegguard,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 12,
+    name: "Folicare",
+    category: "Agrochemical",
+    description:
+      "INSECTICIDE:  Lambda-cyhalothrin 106g/L + Thiamethoxam 141g/L SC",
+    image: folicare,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  },
+  {
+    id: 13,
+    name: "Lambon",
+    category: "Agrochemical",
+    description:
+      "FUNGICIDE: Lambda-cyhalothrin 50g/L EC",
+    image: lambon,
+    icon: <Heart className="h-6 w-6 text-rose-500" />,
+  }
 ];
 
 // ----------------------------------------------------
@@ -114,38 +155,39 @@ const Products = () => {
       : products.filter((p) => p.category === category);
 
   const ProductCard = ({ product }: { product: any }) => (
-    <motion.div
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-      className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden border border-gray-100 p-4 flex flex-col items-center"
-    >
-      <div className="relative w-full flex justify-center items-center">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-56 object-contain transition-transform duration-500 group-hover:scale-105"
-        />
+    <Link to={`/product/${product.id}`}>
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
+        className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl overflow-hidden border border-gray-100 p-4 flex flex-col items-center h-full cursor-pointer"
+      >
+        <div className="relative w-full flex justify-center items-center">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-56 object-contain transition-transform duration-500 group-hover:scale-105"
+          />
 
-        <Link
-          to={`/product/${product.id}`}
-          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        >
-          <Button
-            size="icon"
-            variant="ghost"
-            className="rounded-full bg-green-600 hover:bg-green-700 shadow-md"
+          <div
+            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
-            <Eye className="h-5 w-5 text-white" />
-          </Button>
-        </Link>
-      </div>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="rounded-full bg-green-600 hover:bg-green-700 shadow-md"
+            >
+              <Eye className="h-5 w-5 text-white" />
+            </Button>
+          </div>
+        </div>
 
-      <div className="text-center mt-4">
-        <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wide">
-          {product.name}
-        </h3>
-      </div>
-    </motion.div>
+        <div className="text-center mt-4">
+          <h3 className="text-base font-semibold text-gray-800 uppercase tracking-wide">
+            {product.name}
+          </h3>
+        </div>
+      </motion.div>
+    </Link>
   );
 
   return (
