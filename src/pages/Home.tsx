@@ -5,12 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import heroLogistics from "@/assets/heroLogistics.jpg";
 import bnosha from "@/assets/bnosha.jpg";
-import farmland from "@/assets/farmland.jpg";
 import product1 from "@/assets/produts.jpg";
 import product2 from "@/assets/diclan.jpg";
 import product3 from "@/assets/metron.png"; 
-import vetimg from "@/assets/vetimg.jpg";
+import oxyethioImage from "@/assets/oxyethio.jpg";
 import yaboncover from "@/assets/yaboncover.jpg";
+
+
 const Home = () => {
   const slides = [
     {
@@ -158,7 +159,7 @@ const Home = () => {
             {
               name: "Welin",
               category: "Veterinary Medicines & Animal Health",
-              image: vetimg,
+              image: oxyethioImage,
               link: "/companies/welin",
             },
             {

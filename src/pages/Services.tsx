@@ -17,76 +17,82 @@ const fadeIn = (i = 1): Variants => ({
 const Services = () => {
   const services = [
     {
-      icon: <Truck className="h-8 w-8" />,
+      icon: <Truck className="h-10 w-10" />,
       title: "Reliable Distribution",
       description:
-        "Efficient distribution network ensuring timely delivery of products across the region.",
+        "Our robust logistics infrastructure ensures your critical agricultural and veterinary supplies reach their destination safely and on schedule, across all regions.",
       features: [
-        "Regional warehouse facilities",
-        "Cold chain for sensitive products",
-        "Scheduled delivery routes",
-        "Emergency supply services",
+        "Advanced regional warehousing",
+        "Temperature-controlled cold chain",
+        "Optimized nationwide delivery network",
+        "24/7 emergency supply response",
       ],
+      color: "from-blue-500/20 to-blue-600/5",
     },
     {
-      icon: <Users className="h-8 w-8" />,
+      icon: <Users className="h-10 w-10" />,
       title: "Technical Consultation",
       description:
-        "Expert guidance from our experienced team of agricultural and veterinary specialists.",
+        "Leverage the expertise of our certified specialists to optimize your operations with data-driven insights and professional guidance.",
       features: [
-        "Product selection guidance",
-        "Application recommendations",
-        "Dosage calculations",
-        "Problem-solving support",
+        "Specialized product selection",
+        "Evidence-based application protocols",
+        "Precision dosage & nutrition planning",
+        "On-site diagnostic consultations",
       ],
+      color: "from-green-500/20 to-green-600/5",
     },
     {
-      icon: <BookOpen className="h-8 w-8" />,
+      icon: <BookOpen className="h-10 w-10" />,
       title: "Training Programs",
       description:
-        "Educational programs and workshops for farmers and veterinary professionals.",
+        "We empower the next generation of agricultural leaders through comprehensive educational workshops and hands-on skill development.",
       features: [
-        "Product training sessions",
-        "Best practice workshops",
-        "Safety protocol training",
-        "Certification programs",
+        "Modern agricultural technique workshops",
+        "Veterinary practice excellence",
+        "Safety & environmental compliance",
+        "Professional certification tracks",
       ],
+      color: "from-amber-500/20 to-amber-600/5",
     },
     {
-      icon: <Headphones className="h-8 w-8" />,
-      title: "Customer Support",
+      icon: <Headphones className="h-10 w-10" />,
+      title: "Customer Success",
       description:
-        "Dedicated customer service team available to assist with all your needs.",
+        "Our relationship doesn't end at the sale. We provide continuous support to ensure you achieve maximum value from our solutions.",
       features: [
-        "24/7 emergency hotline",
-        "Order tracking system",
-        "Technical helpdesk",
-        "Multi-language support",
+        "Dedicated account management",
+        "Digital order tracking portal",
+        "Direct technical helpdesk",
+        "Bilingual professional support",
       ],
+      color: "from-purple-500/20 to-purple-600/5",
     },
     {
-      icon: <MapPin className="h-8 w-8" />,
-      title: "Field Support",
+      icon: <MapPin className="h-10 w-10" />,
+      title: "Field Excellence",
       description:
-        "On-site technical assistance and field visits by our expert team.",
+        "Our experts meet you where the work happens, providing real-world testing and verification to guarantee project success.",
       features: [
-        "Farm/facility visits",
-        "Product demonstrations",
-        "Application monitoring",
-        "Results evaluation",
+        "Regular facility health audits",
+        "Real-time product demonstrations",
+        "Long-term performance monitoring",
+        "Customized field research data",
       ],
+      color: "from-red-500/20 to-red-600/5",
     },
     {
-      icon: <Clock className="h-8 w-8" />,
-      title: "After-Sales Service",
+      icon: <Clock className="h-10 w-10" />,
+      title: "Quality Assurance",
       description:
-        "Comprehensive post-purchase support ensuring customer satisfaction.",
+        "Every solution we provide is backed by a rigorous quality promise and comprehensive after-sales integrity monitoring.",
       features: [
-        "Product performance monitoring",
-        "Issue resolution",
-        "Replacement guarantee",
-        "Continuous improvement feedback",
+        "Continuous performance tracking",
+        "Rapid quality resolution protocol",
+        "Comprehensive product guarantee",
+        "Feedback-driven service evolution",
       ],
+      color: "from-teal-500/20 to-teal-600/5",
     },
   ];
 
@@ -98,35 +104,42 @@ const Services = () => {
       viewport={{ once: true }}
       className="group"
     >
-      <Card className="h-full shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 bg-white/80 dark:bg-gray-900/50 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl">
-        <CardHeader className="relative overflow-hidden">
-          <div className="text-primary mb-4 group-hover:scale-110 transition-transform duration-300">
+      <Card className="h-full relative overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 bg-white/40 dark:bg-gray-900/40 backdrop-blur-md border border-white/20 dark:border-gray-800/50 rounded-[2rem]">
+        <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-50 transition-opacity group-hover:opacity-100`} />
+        
+        <CardHeader className="relative z-10 pt-8">
+          <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center shadow-lg text-primary mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 border border-gray-100 dark:border-gray-700">
             {service.icon}
           </div>
-          <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
+          <CardTitle className="text-2xl font-bold tracking-tight">
             {service.title}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+
+        <CardContent className="relative z-10 space-y-6">
+          <p className="text-muted-foreground leading-relaxed text-lg">
             {service.description}
           </p>
-          <ul className="space-y-2">
+          
+          <div className="space-y-3">
             {service.features.map((feature: string, i: number) => (
-              <li key={i} className="flex items-start">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              <div key={i} className="flex items-center gap-3">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary/60" />
+                <span className="text-sm font-medium text-muted-foreground/80 group-hover:text-foreground transition-colors">
                   {feature}
                 </span>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
+
           <Button
-            variant="outline"
-            className="w-full border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            variant="ghost"
+            className="w-full mt-4 group/btn hover:bg-primary hover:text-white rounded-xl transition-all font-semibold"
             asChild
           >
-            <Link to="/contact">Learn More</Link>
+            <Link to="/contact" className="flex items-center justify-center gap-2">
+              Explore Detail <span className="transform group-hover/btn:translate-x-1 transition-transform">→</span>
+            </Link>
           </Button>
         </CardContent>
       </Card>
@@ -134,144 +147,106 @@ const Services = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background/90 to-muted/50">
+    <div className="min-h-screen bg-[#fafafa]">
       {/* Hero Section */}
       <section
-        className="relative py-24 bg-cover bg-no-repeat text-center text-black"
-        style={{
-          backgroundImage: `url(${servicebg})`,
-          backgroundPosition: "center top 30%",
-        }}
+        className="relative py-32 md:py-48 overflow-hidden"
       >
-        {/* Dim overlay for better readability */}
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-        <div className="relative z-10 container mx-auto px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-extrabold mb-6 text-white drop-shadow-lg"
-          >
-            Our Services
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <div 
+          className="absolute inset-0 bg-cover bg-fixed grayscale-[20%] brightness-[0.4]"
+          style={{
+            backgroundImage: `url(${servicebg})`,
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-primary/20 to-transparent" />
+        
+        <div className="relative z-10 container mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="text-lg max-w-3xl mx-auto text-white/90"
           >
-            We provide innovative agricultural and veterinary service solutions
-            that empower growth, sustainability, and productivity.
-          </motion.p>
+            <span className="inline-block px-4 py-1.5 mb-6 text-sm font-bold tracking-[0.2em] uppercase text-white bg-primary/20 backdrop-blur-md rounded-full border border-white/10">
+              Expert Solutions
+            </span>
+            <h1 className="text-6xl md:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl">
+              Elevating <span className="text-primary italic">Potential</span>
+            </h1>
+            <p className="text-xl md:text-2xl max-w-2xl mx-auto text-white/80 leading-relaxed font-light">
+              We deliver cutting-edge agricultural and veterinary services 
+              that redefine productivity and drive sustainable success.
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-extrabold text-foreground mb-4">
-            Complete Service Solutions
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            We go beyond product supply to offer expert consultation, training,
-            and continuous field support to help you succeed.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+      <section className="py-32 container mx-auto px-6 -mt-16 md:-mt-24 relative z-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}
         </div>
       </section>
 
-      {/* Service Process */}
-      <section className="py-20 bg-muted/20">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-extrabold text-foreground mb-4">
-              How We Serve You
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              From consultation to follow-up, we ensure every step delivers value
-              and excellence.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-6xl mx-auto">
-            {["Consultation", "Recommendation", "Implementation", "Follow-up"].map(
-              (step, i) => (
-                <motion.div
-                  key={i}
-                  variants={fadeIn(i)}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="text-center p-6 rounded-2xl bg-white/70 dark:bg-gray-800/40 shadow-md hover:shadow-lg transition-all duration-300 backdrop-blur-xl"
-                >
-                  <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold shadow-md">
-                    {i + 1}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{step}</h3>
-                  <p className="text-muted-foreground">
-                    {
-                      [
-                        "Assessment of your needs and requirements",
-                        "Tailored product & service recommendations",
-                        "Delivery and implementation support",
-                        "Ongoing performance monitoring",
-                      ][i]
-                    }
-                  </p>
-                </motion.div>
-              )
-            )}
+      {/* Modern Process Section */}
+      <section className="py-32 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-20">
+            <div className="lg:w-1/2">
+              <span className="text-primary font-bold tracking-widest uppercase text-sm">Working with us</span>
+              <h2 className="text-5xl font-black text-slate-900 mt-4 mb-8 leading-tight">
+                Our Precision <br />Methodology
+              </h2>
+              <p className="text-slate-600 text-lg leading-relaxed mb-10">
+                Experience a seamless journey from initial discovery to measurable results. 
+                Our team integrates directly with your operations to ensure excellence.
+              </p>
+            </div>
+            
+            <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { title: "Consultation", desc: "Deep analysis of your unique ecosystem" },
+                { title: "Strategy", desc: "Data-driven solution architecture" },
+                { title: "Deployment", desc: "Expert-led implementation phase" },
+                { title: "Expansion", desc: "Strategic growth & optimization" },
+              ].map((step, i) => (
+                <div key={i} className="p-8 rounded-[2rem] bg-slate-50 border border-slate-100 hover:border-primary/30 transition-colors">
+                  <span className="text-4xl font-black text-primary/20 mb-4 block">0{i+1}</span>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
+                  <p className="text-slate-500 text-sm">{step.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 bg-gradient-to-r from-primary to-green-600 text-white text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="container mx-auto px-4"
-        >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
-            Ready to Experience Our Services?
-          </h2>
-          <p className="text-xl mb-10 max-w-2xl mx-auto text-white/90">
-            Get in touch with our expert team today and discover how our tailored
-            solutions can help your agricultural or veterinary operations thrive.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-  <Button
-    size="lg"
-    className="bg-white text-primary hover:bg-white/90 font-semibold"
-    asChild
-  >
-    <Link to="/contact">Schedule Consultation</Link>
-  </Button>
-  <Button
-    size="lg"
-    className="bg-green-600 text-white hover:bg-white-700 font-semibold"
-    asChild
-  >
-    <Link to="/contact">Contact Our Team</Link>
-  </Button>
-</div>
-        </motion.div>
+      {/* Modern CTA */}
+      <section className="py-32 bg-slate-900 overflow-hidden relative">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="grid grid-cols-6 h-full">
+            {[...Array(6)].map((_, i) => <div key={i} className="border-r border-white/20" />)}
+          </div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
+              Transform Your <br />Operations Today
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-12 py-8 text-xl font-bold transition-all hover:scale-105" asChild>
+                <Link to="/contact">Get Started</Link>
+              </Button>
+              <Button size="lg" variant="outline" className="text-white border-white/20 hover:bg-white/10 rounded-2xl px-12 py-8 text-xl font-bold backdrop-blur-sm" asChild>
+                <Link to="/contact">Technical Inquiries</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );

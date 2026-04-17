@@ -13,11 +13,12 @@ import Services from "./pages/Services";
 import Bnosha from "./pages/companies/Bnosha";
 import Welin from "./pages/companies/Welin";
 import Yabon from "./pages/companies/Yabon";
-import AgroContact from "./pages/AgroContact";
 import NotFound from "./pages/NotFound";
 import ProductDetails from "./pages/ProductDetails";
 import NoshaTravel from "./pages/NoshaTravel";
-import contact from "./pages/contact";
+import Contact from "./pages/Contact";
+
+import TourContact from "./pages/tourContact";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/tourContact" element={<TourContact />} />
           <Route
             path="/*"
             element={
@@ -39,6 +41,7 @@ const App = () => (
                   <Route path="/products" element={<Products />} />
                   <Route path="/product/:id" element={<ProductDetails />} />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
 
                   {/* Sister Companies */}
                   <Route path="/companies/Bnosha" element={<Bnosha />} />
@@ -52,7 +55,6 @@ const App = () => (
             }
           />
           <Route path="/nosha-travel" element={<NoshaTravel />} />
-          <Route path="/agro-contact" element={<AgroContact />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

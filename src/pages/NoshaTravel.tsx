@@ -38,7 +38,7 @@ const NoshaTravel = () => {
         <section className="text-center mt-16">
           <h2 className="text-3xl font-bold mb-4">Ready for your next adventure?</h2>
           <p className="text-lg mb-8">Contact us to book your dream vacation today!</p>
-          <Link to="/contact">
+          <Link to="/tourContact">
             <Button size="lg" className="bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
               Reserve Now
             </Button>

@@ -71,15 +71,6 @@ export const products = [
   },
   {
     id: 6,
-    name: "VetPlus",
-    category: "Agrochemical",
-    description:
-      "A trusted veterinary solution for improving livestock immunity and growth performance.",
-    image: welmaxImage,
-    icon: <Heart className="h-6 w-6 text-rose-500" />,
-  },
-  {
-    id: 7,
     name: "DICLAN",
     category: "Veterinary",
     description:
@@ -88,7 +79,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 8,
+    id: 7,
     name: "Oxytetracycline 20%",
     category: "Veterinary",
     description:
@@ -97,7 +88,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 9,
+    id: 8,
     name: "1% Ivermectin",
     category: "Veterinary",
     description:
@@ -106,7 +97,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 10,
+    id: 9,
     name: "Maxyl",
     category: "Agrochemical",
     description:
@@ -115,7 +106,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 11,
+    id: 10,
     name: "Veg Guard",
     category: "Agrochemical",
     description:
@@ -124,7 +115,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 12,
+    id: 11,
     name: "Folicare",
     category: "Agrochemical",
     description:
@@ -133,7 +124,7 @@ export const products = [
     icon: <Heart className="h-6 w-6 text-rose-500" />,
   },
   {
-    id: 13,
+    id: 12,
     name: "Lambon",
     category: "Agrochemical",
     description:

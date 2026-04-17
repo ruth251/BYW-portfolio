@@ -141,6 +141,10 @@ const Landing = () => {
   };
 
   const handleCardClick = (card: (typeof businessCards)[0]) => {
+    if (card.title === "BYW Agro") {
+      navigate("/home");
+      return;
+    }
     if (card.route) {
       navigate(card.route);
     } else if (card.url) {
